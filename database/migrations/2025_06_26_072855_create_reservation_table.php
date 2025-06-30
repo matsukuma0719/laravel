@@ -9,14 +9,14 @@ return new class extends Migration {
     {
         Schema::create('reservations', function (Blueprint $table) {
             // 主キー
-            $table->uuid('id')->primary();
+            $table->uuid('reservations_id')->primary();
 
             // 外部キー
             $table->uuid('menu_id');
             $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade');
 
-            $table->uuid('employee_id');
-            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
+            $table->uuid('emp_id');
+            $table->foreign('emp_id')->references('id')->on('employees')->onDelete('cascade');
 
             $table->uuid('customer_id');
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
@@ -33,7 +33,7 @@ return new class extends Migration {
             $table->timestamps();
 
             // 検索最適化用インデックス
-            $table->index(['employee_id', 'date', 'start_time']);
+            $table->index(['emp_id', 'date', 'start_time']);
         });
     }
 

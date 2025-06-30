@@ -8,13 +8,12 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('employees', function (Blueprint $table) {
-            $table->uuid('id')->primary(); // UUID主キー
-            $table->string('emp_id')->unique(); // 表示用IDなど
+            $table->uuid('emp_id')->primary(); // UUID主キー
             $table->string('name');
             $table->string('user_id')->unique()->nullable(); // LINE連携IDなど
             $table->string('image_id')->nullable();
             $table->text('bio')->nullable();
-            $table->json('menu_list')->nullable();
+            $table->json('menu_id')->nullable();
             $table->string('role')->default('staff'); // 例: staff / admin
             $table->timestamps();
         });

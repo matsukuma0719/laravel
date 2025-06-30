@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Schema;
     public function up(): void
     {
         Schema::create('menus', function (Blueprint $table) {
-        $table->uuid('id')->primary();
+        $table->uuid('menu_id')->primary();
         $table->string('menu_name');
         $table->integer('duration'); // 分単位
         $table->integer('price')->nullable(); // 任意なのでnullableに
