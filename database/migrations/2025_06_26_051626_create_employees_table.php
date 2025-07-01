@@ -9,7 +9,7 @@ return new class extends Migration {
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->uuid('id')->primary();                // ✅ 主キー：UUID（リレーション・外部キー用）
-            $table->string('employee_id')->unique();   
+            $table->string('emp_id')->unique();   
             $table->string('name');
             $table->string('user_id')->unique()->nullable(); // LINE連携IDなど
             $table->string('image_id')->nullable();
@@ -25,3 +25,5 @@ return new class extends Migration {
         Schema::dropIfExists('employees');
     }
 };
+
+

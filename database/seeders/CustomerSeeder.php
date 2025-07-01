@@ -1,6 +1,6 @@
 <?php
- 
- namespace Database\Seeders;
+
+namespace Database\Seeders;
  
  use Illuminate\Database\Seeder;
  use Illuminate\Support\Facades\DB;
@@ -10,7 +10,8 @@
  {
      public function run(): void
      {
-        DB::table('customers')->insert([
+      DB::table('customers')->insert([
+            'id' => Str::uuid(), // ← これを追加！
             'customer_id' => Str::uuid(),
             'user_id' => 'U' . mt_rand(1000000000, 9999999999),
             'name' => 'Dr. Deron Harvey IV',
