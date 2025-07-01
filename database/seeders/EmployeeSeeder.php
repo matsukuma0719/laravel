@@ -1,22 +1,25 @@
 <?php
-
-namespace Database\Seeders;
-
-use App\Models\Employee;
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
-
-class EmployeeSeeder extends Seeder
-{
-    public function run(): void
-    {
-        Employee::create([
-            'id' => Str::uuid(), // ← 明示的にUUIDを指定！
-            'emp_id' => 'E001',   // ✅ ← これを追加
-            'name' => '山田 太郎',
-            'user_id' => 'Uemp0001',
-            'image_id' => 'image_001',
-            'bio' => 'カットとカラーが得意です！',
-        ]);
-    }
-}
+ 
+ namespace Database\Seeders;
+ 
+ use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+ use Illuminate\Support\Str;
+ 
+ class EmployeeSeeder extends Seeder
+ {
+     public function run(): void
+     {
+        DB::table('employees')->insert([
+            'emp_id' => Str::uuid(),
+             'name' => '山田 太郎',
+            'user_id' => 'Uemp' . mt_rand(100000, 999999),
+             'image_id' => 'image_001',
+             'bio' => 'カットとカラーが得意です！',
+            'menu_id' => null,
+            'role' => 'staff',
+            'created_at' => now(),
+            'updated_at' => now(),
+         ]);
+     }
+ }
