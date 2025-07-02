@@ -14,4 +14,12 @@ class Menu extends Model
         'duration',
         'price',
     ];
+
+    /**
+     * このメニューに対応する従業員一覧
+     */
+    public function employees()
+    {
+        return $this->belongsToMany(Employee::class, 'employee_menu', 'menu_id', 'emp_id');
+    }
 }

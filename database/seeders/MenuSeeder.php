@@ -9,10 +9,15 @@ namespace Database\Seeders;
  {
      public function run(): void
      {
+                // UUIDを事前に生成
+        $menuId1 = Str::uuid();
+        $menuId2 = Str::uuid();
+        $menuId3 = Str::uuid();
+        
         DB::table('menus')->insert([
     [
-        'id' => Str::uuid(),
-        'menu_id' => Str::uuid(),
+       'id' => $menuId1,
+        'menu_id' => $menuId1,
         'menu_name' => 'カット',
         'duration' => 60,
         'price' => 4000,
@@ -20,8 +25,8 @@ namespace Database\Seeders;
         'updated_at' => now(),
     ],
     [
-        'id' => Str::uuid(),
-        'menu_id' => Str::uuid(),
+        'id' => $menuId2,
+        'menu_id' => $menuId2,
         'menu_name' => 'カラー',
         'duration' => 120,
         'price' => 8000,
@@ -29,8 +34,8 @@ namespace Database\Seeders;
         'updated_at' => now(),
     ],
     [
-        'id' => Str::uuid(),
-        'menu_id' => Str::uuid(),
+        'id' => $menuId3,
+        'menu_id' => $menuId3,
         'menu_name' => 'パーマ',
         'duration' => 90,
         'price' => 9000,

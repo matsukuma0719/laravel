@@ -1,24 +1,33 @@
 <?php
- 
-namespace Database\Seeders;
-  use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
- 
- class EmployeeMenuSeeder extends Seeder
- {
-     /**
-      * Run the database seeds.
-      */
-     public function run(): void
-     {
-        $menuId = DB::table('menus')->value('menu_id');
-        $employeeId = DB::table('employees')->value('emp_id');
 
-        DB::table('employeemenu')->insert([
-            'emp_id' => $employeeId,
-            'menu_id' => $menuId,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-     }
- }
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use App\Models\Employee;
+use App\Models\Menu;
+use App\Models\EmployeeMenu;
+
+class EmployeeMenuSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $employees = Employee::all();
+        $menus = Menu::all();
+
+        foreach ($employees as $employee) {
+            // 各従業員にランダムで2つのメニューを割り当て（重複防止）
+            $menus->random(2)->each(function ($menu) use ($employee) {
+                EmployeeMenu::firstOrCreate(
+                    [
+                        'emp_id' => $employee->emp_id,
+                        'menu_id' => $menu->menu_id,
+                    ],
+                    [
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]
+                );
+            });
+        }
+    }
+}
