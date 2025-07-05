@@ -1,14 +1,20 @@
 import defaultTheme from 'tailwindcss/defaultTheme';
 import forms from '@tailwindcss/forms';
 
-/** @type {import('tailwindcss').Config} */
+/** @type {import('@tailwindcss/postcss').Config} */
 export default {
     content: [
-        './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
+        './resources/**/*.blade.php',
+        './resources/**/*.js',
+        './resources/**/*.vue',
         './storage/framework/views/*.php',
-        './resources/views/**/*.blade.php',
+        './vendor/laravel/framework/**/*.blade.php',
     ],
-
+    safelist: [
+        {
+            pattern: /.*/, // ✅ 全クラスを強制的に出力（デバッグ用）
+        },
+    ],
     theme: {
         extend: {
             fontFamily: {
@@ -16,6 +22,5 @@ export default {
             },
         },
     },
-
     plugins: [forms],
 };
