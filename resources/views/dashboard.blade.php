@@ -8,8 +8,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
-<div class="bg-red-500 text-white p-4 font-bold">Tailwind CSSテスト：赤背景なら成功！</div>
-<link rel="stylesheet" href="{{ asset('css/output.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/output.css') }}">
 
                 <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600 text-sm">
                     <thead class="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
