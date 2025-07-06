@@ -37,7 +37,6 @@ class ReservationFactory extends Factory
         $end_time = date('H:i:s', strtotime("+$duration minutes", strtotime($start_time)));
 
         return [
-            'id' => (string) Str::uuid(),
             'reservation_id' => (string) Str::uuid(),
             'emp_id' => $employee->emp_id,
             'menu_id' => $menu->menu_id,

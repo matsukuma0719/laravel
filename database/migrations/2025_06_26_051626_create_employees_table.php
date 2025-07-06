@@ -8,7 +8,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('employees', function (Blueprint $table) {
-            $table->uuid('id')->primary();                // ✅ 主キー：UUID（リレーション・外部キー用）
+            $table->id()->primary();
             $table->string('emp_id')->unique();   
             $table->string('name');
             $table->string('user_id')->unique()->nullable(); // LINE連携IDなど

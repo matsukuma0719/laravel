@@ -8,7 +8,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('reservations', function (Blueprint $table) {
-            $table->uuid('id')->primary();  
+            $table->id()->primary();  
             
             // 補助キー（外部連携用UUID）
             $table->uuid('reservation_id')->unique(); // 🔄 外部予約番号・URLなどに利用

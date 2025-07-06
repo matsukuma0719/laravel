@@ -8,7 +8,6 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
-            <link rel="stylesheet" href="{{ asset('css/output.css') }}">
 
                 <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600 text-sm">
                     <thead class="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200">

@@ -9,6 +9,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\LineController;
 
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -31,6 +32,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/employees', [EmployeeController::class, 'index'])->name('employees.index');
     Route::get('/menus', [MenuController::class, 'index'])->name('menus.index');
     Route::get('/line', [LineController::class, 'index'])->name('line.index');
+    Route::get('/reservations/today', [ReservationController::class, 'today'])->name('reservations.today');
+    Route::get('/reservations/view-setting', [ReservationController::class, 'viewSetting'])
+        ->name('reservations.view-setting');
+    Route::post('/reservations/apply-view-setting', [ReservationController::class, 'applyViewSetting'])
+        ->name('reservations.apply-view-setting');
+    Route::get('/reservations/{emp}/edit', [ReservationController::class, 'edit'])->name('reservations.edit');
+    Route::put('/reservations/{id}', [ReservationController::class, 'update'])->name('reservations.update');
+
 });
 
 require __DIR__.'/auth.php';
