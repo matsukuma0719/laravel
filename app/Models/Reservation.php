@@ -21,21 +21,22 @@ class Reservation extends Model
         'date', 'start_time', 'end_time',
     ];
 
-    // メニューとのリレーション
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class, 'employee_id', 'employee_id');
+    }
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class, 'customer_id', 'customer_id');
+    }
     public function menu()
     {
         return $this->belongsTo(Menu::class, 'menu_id', 'menu_id');
     }
 
-    // 従業員とのリレーション
-    public function employee()
+    public function reservations()
     {
-        return $this->belongsTo(Employee::class, 'emp_id', 'emp_id');
+    return $this->hasMany(Reservation::class, 'employee_id');
     }
 
-    // 顧客とのリレーション
-    public function customer()
-    {
-        return $this->belongsTo(Customer::class, 'customer_id', 'customer_id');
-    }
 }

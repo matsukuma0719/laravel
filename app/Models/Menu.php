@@ -20,6 +20,7 @@ class Menu extends Model
      */
     public function employees()
     {
-        return $this->belongsToMany(Employee::class, 'employee_menu', 'menu_id', 'emp_id');
+        return $this->belongsToMany(Employee::class, 'employeemenu', 'menu_id', 'employee_id');
     }
+
 }

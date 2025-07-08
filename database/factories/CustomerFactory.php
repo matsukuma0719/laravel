@@ -15,10 +15,10 @@ class CustomerFactory extends Factory
     $uuid = (string) Str::uuid();
 
         return [
-            'customer_id' => $uuid,      // 外部参照・一意な識別子
-            'name' => $this->faker->name(),
-            'user_id' => 'U' . $this->faker->unique()->numerify('##########'),
-            'phone_number' => $this->faker->phoneNumber(),
+        'customer_id' => Str::uuid(),
+        'user_id' => 'U' . Str::random(30), // LINE想定
+        'name' => $this->faker->name(),
+        'phone_number' => $this->faker->phoneNumber(),
         ];
     }
 }

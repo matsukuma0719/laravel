@@ -14,8 +14,8 @@ class EmployeeMenuFactory extends Factory
     public function definition(): array
     {
         return [
-            'emp_id' => Employee::inRandomOrder()->value('emp_id'),
-            'menu_id' => Menu::inRandomOrder()->value('menu_id'),
+        'employee_id' => Str::uuid(),
+        'menu_id' => Str::uuid(),    
         ];
     }
 }

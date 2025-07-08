@@ -16,7 +16,7 @@ class EmployeeSeeder extends Seeder
 
         // 手動で1件追加
         DB::table('employees')->insert([
-            'emp_id' => Str::uuid(),
+            'employee_id' => Str::uuid(),
             'name' => '山田 太郎',
             'user_id' => 'Uemp' . mt_rand(100000, 999999),
             'image_id' => 'image_001',

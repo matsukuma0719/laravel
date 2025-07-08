@@ -6,17 +6,15 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
-    public function run(): void
-    {
-        $this->call([
-            CustomerSeeder::class,
-            MenuSeeder::class,
-            EmployeeSeeder::class,
-            EmployeeMenuSeeder::class,
-            ReservationSeeder::class,
-        ]);
-    }
+  
+public function run(): void
+{
+    // 1. 先に基礎データ（menu, employee, customer）を作成
+    \App\Models\Menu::factory(5)->create();
+    \App\Models\Employee::factory(5)->create();
+    \App\Models\Customer::factory(10)->create();
+
+    // 2. Reservationでそれらを使う
+    \App\Models\Reservation::factory(20)->create();
+}
 }

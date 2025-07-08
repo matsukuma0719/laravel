@@ -19,7 +19,7 @@ class EmployeeMenuSeeder extends Seeder
             $menus->random(2)->each(function ($menu) use ($employee) {
                 EmployeeMenu::firstOrCreate(
                     [
-                        'emp_id' => $employee->emp_id,
+                        'employee_id' => $employee->employee_id,
                         'menu_id' => $menu->menu_id,
                     ],
                     [

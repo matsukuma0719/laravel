@@ -1,7 +1,5 @@
 <?php
 
-// app/Http/Controllers/ReservationController.php
-
 namespace App\Http\Controllers;
 
 use App\Models\Reservation;
@@ -9,41 +7,44 @@ use App\Models\Menu;
 use App\Models\Employee;
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
+//ーーーーーーーーーーーRESERVATIONーーーーーーーーーーーー
 class ReservationController extends Controller
 {
-    // 一覧表示
+
+    //ーーーーーーーーーー予約一覧を取得ーーーーーーーーーー
     public function index()
     {
-        $reservations = Reservation::with(['menu', 'employee', 'customer'])->paginate(10);
+        $reservations = Reservation::with(['employee', 'menu', 'customer'])
+            ->orderBy('date')
+            ->orderBy('start_time')
+            ->get();
+
         return view('reservations.index', compact('reservations'));
     }
 
-    // 予約フォーム表示
-   /* public function create()
+
+    // 一覧描画
+    public function showTodaySchedule()
     {
-        $menus = Menu::all();
         $employees = Employee::all();
-        $customers = Customer::all();
-        return view('reservations.create', compact('menus', 'employees', 'customers'));
+        $reservations = Reservation::with(['employee', 'menu'])
+            ->whereDate('date', today())
+            ->get();
+
+        $timeSlots = [];
+        $start = strtotime('09:00');
+        $end = strtotime('18:00');
+
+        while ($start < $end) {
+            $timeSlots[] = date('H:i', $start);
+            $start += 30 * 60;
+        }
+
+        return view('reservations.today', compact('employees', 'reservations', 'timeSlots'));
     }
 
-    // 新規予約登録
-    public function store(Request $request)
-    {
-        $request->validate([
-            'emp_id' => 'required',
-            'menu_id' => 'required',
-            'customer_id' => 'required',
-            'date' => 'required|date',
-            'start_time' => 'required',
-        ]);
-
-        Reservation::create($request->all());
-
-        return redirect()->route('reservations.index')->with('success', '予約を登録しました');
-    }
-        */
 
     // 予約更新
     public function update(Request $request, $id)
@@ -62,27 +63,30 @@ class ReservationController extends Controller
         return redirect()->route('reservations.index')->with('success', '予約を削除しました');
     }
 
+    // 今日の予約表示
     public function today()
     {
-        $employees = Employee::all();
+        $employees = Employee::with([
+            'reservations' => function ($query) {
+                $query->whereDate('date', today())
+                    ->orderBy('start_time');
+            }
+        ])->get();
 
-        // ✅ 表示時間範囲をセッションから取得（なければデフォルト）
-        $startHour = session('start_hour', 8);
-        $endHour = session('end_hour', 19);
+        $timeSlots = [];
+        $start = \Carbon\Carbon::createFromTime(9, 0);
+        $end = \Carbon\Carbon::createFromTime(18, 0);
+        while ($start < $end) {
+            $timeSlots[] = $start->format('H:i');
+            $start->addMinutes(30);
+        }
 
-        // ✅ 今日の予約データを取得してキーを整形
-        $reservations = Reservation::where('date', today()->toDateString())->get()
-            ->mapWithKeys(function ($r) {
-                $formattedTime = \Carbon\Carbon::parse($r->start_time)->format('H:i');
-                return [$r->emp_id . '_' . $formattedTime => $r];
-            });
-
-        // ✅ Bladeへ全変数を渡す
-        return view('reservations.today', compact('employees', 'reservations', 'startHour', 'endHour'));
+        return view('reservations.today', compact('employees', 'timeSlots'));
     }
 
 
-        public function viewSetting()
+    // 表示時間設定画面
+    public function viewSetting()
     {
         $startHour = session('start_hour', 8);
         $endHour = session('end_hour', 19);
@@ -90,6 +94,7 @@ class ReservationController extends Controller
         return view('reservations.view_setting', compact('startHour', 'endHour'));
     }
 
+    // 表示時間をセッションに保存
     public function applyViewSetting(Request $request)
     {
         session([
@@ -100,6 +105,7 @@ class ReservationController extends Controller
         return redirect()->route('reservations.today');
     }
 
+    // 編集画面表示
     public function edit($empId, Request $request)
     {
         $time = $request->query('time');
@@ -113,6 +119,4 @@ class ReservationController extends Controller
 
         return view('reservations.edit', compact('employee', 'reservation', 'time'));
     }
-
-
 }

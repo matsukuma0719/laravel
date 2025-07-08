@@ -19,4 +19,16 @@ class EmployeeMenu extends Model
         'created_at',
         'updated_at',
     ];
+
+    // EmployeeMenu.php
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class, 'employee_id', 'employee_id');
+    }
+
+    public function menu()
+    {
+        return $this->belongsTo(Menu::class, 'menu_id', 'menu_id');
+    }
+
 }

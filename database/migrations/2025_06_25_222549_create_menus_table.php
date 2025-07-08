@@ -11,12 +11,12 @@ use Illuminate\Support\Facades\Schema;
      */
     public function up(): void
     {
-        Schema::create('menus', function (Blueprint $table) {
+    Schema::create('menus', function (Blueprint $table) {
         $table->id()->primary();
-        $table->string('menu_id')->unique(); // 補助ID 
+        $table->uuid('menu_id')->unique();      // 補助ID（UUID）
         $table->string('menu_name');
-        $table->integer('duration'); // 分単位
-        $table->integer('price')->nullable(); // 任意なのでnullableに
+        $table->integer('duration');            // 所要時間（分単位）
+        $table->integer('price')->nullable();   // 料金（任意）
         $table->timestamps();
     });
 }

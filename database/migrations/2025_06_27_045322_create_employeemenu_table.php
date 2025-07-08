@@ -10,26 +10,28 @@
      /**
       * Run the migrations.
       */
-     public function up(): void
-     {
-         Schema::create('employeemenu', function (Blueprint $table) {
-            $table->uuid('emp_id');
-            $table->uuid('menu_id');
-             $table->timestamps();
+// ✅ migration: create_employeemenu_table.php
+public function up(): void
+{
+    Schema::create('employeemenu', function (Blueprint $table) {
+        $table->uuid('employee_id');
+        $table->uuid('menu_id');
+        $table->timestamps();
 
-            $table->primary(['emp_id', 'menu_id']);
+        $table->primary(['employee_id', 'menu_id']);
 
-            $table->foreign('emp_id')
-                ->references('emp_id')
-                ->on('employees')
-                ->onDelete('cascade');
+        $table->foreign('employee_id')
+            ->references('employee_id')
+            ->on('employees')
+            ->onDelete('cascade');
 
-            $table->foreign('menu_id')
-                ->references('menu_id')
-                ->on('menus')
-                ->onDelete('cascade');
-         });
-     }
+        $table->foreign('menu_id')
+            ->references('menu_id')
+            ->on('menus')
+            ->onDelete('cascade');
+    });
+}
+
  
      /**
       * Reverse the migrations.

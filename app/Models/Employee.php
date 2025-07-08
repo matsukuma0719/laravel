@@ -30,6 +30,13 @@ class Employee extends Model
      */
     public function menus()
     {
-        return $this->belongsToMany(Menu::class, 'employee_menu', 'emp_id', 'menu_id');
+        return $this->belongsToMany(Menu::class, 'employeemenu', 'employee_id', 'menu_id');
     }
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class, 'employee_id');
+    }
+
+
 }
