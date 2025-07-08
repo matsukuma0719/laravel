@@ -14,4 +14,11 @@ class Customer extends Model
         return $this->hasMany(Reservation::class, 'customer_id', 'customer_id');
     }
 
+    // app/Models/Customer.php
+    public function latestReservation()
+    {
+        return $this->hasOne(\App\Models\Reservation::class, 'customer_id', 'customer_id')->latestOfMany('date');
+    }
+
+
 }
