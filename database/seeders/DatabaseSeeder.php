@@ -13,8 +13,7 @@ public function run(): void
     \App\Models\Menu::factory(5)->create();
     \App\Models\Employee::factory(5)->create();
     \App\Models\Customer::factory(10)->create();
-
-    // 2. Reservationでそれらを使う
     \App\Models\Reservation::factory(20)->create();
+    $this->call([WorkShiftSeeder::class,]);
 }
 }

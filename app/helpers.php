@@ -4,8 +4,6 @@ use Carbon\Carbon;
 
 function convertCodeToTime($code)
 {
-    $code = str_replace('-', '', $code); // ← ✅ ここを追加
-
     $map = [
         'A' => '09:00:00',
         'B' => '10:00:00',
@@ -30,31 +28,30 @@ function convertCodeToTime($code)
     return [$startTime, $end->format('H:i:s')];
 }
 
+function convertToCode($startTime, $endTime)
+{
+    $map = [
+        'A' => '09:00:00',
+        'B' => '10:00:00',
+        'C' => '11:00:00',
+        'D' => '12:00:00',
+        'E' => '13:00:00',
+        'F' => '14:00:00',
+        'G' => '15:00:00',
+    ];
 
-if (!function_exists('convertToCode')) {
-    function convertToCode($startTime, $endTime)
-    {
-        $map = [
-            'A' => '09:00:00',
-            'B' => '10:00:00',
-            'C' => '11:00:00',
-            'D' => '12:00:00',
-            'E' => '13:00:00',
-            'F' => '14:00:00',
-            'G' => '15:00:00',
-        ];
+    $start = Carbon::createFromFormat('H:i:s', $startTime);
+    $end = Carbon::createFromFormat('H:i:s', $endTime);
 
-        $start = Carbon::createFromFormat('H:i:s', $startTime);
-        $end = Carbon::createFromFormat('H:i:s', $endTime);
-
-        foreach ($map as $code => $time) {
-            $mapStart = Carbon::createFromFormat('H:i:s', $time);
-            if ($start->equalTo($mapStart)) {
-                $duration = $end->diffInHours($start);
-                return $code . $duration;
-            }
+    foreach ($map as $code => $time) {
+        $mapStart = Carbon::createFromFormat('H:i:s', $time);
+        if ($start->equalTo($mapStart)) {
+            $duration = abs($end->diffInHours($start)); // 🔧 ← 修正ここ！
+            $result = $code . $duration;
+            \Log::debug("convertToCode: $startTime ~ $endTime => $result");
+            return $result;
         }
-
-        return null; // 対応するコードがない場合
     }
+
+    return null;
 }
