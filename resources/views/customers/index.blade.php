@@ -18,6 +18,7 @@
                 @foreach ($customers as $customer)
                     <tr class="hover:bg-blue-50 cursor-pointer"
                         @click="showModal = true; modalData = {
+                            customer_id: '{{ $customer->customer_id }}',
                             name: '{{ $customer->name }}',
                             latest_date: '{{ $customer->latestReservation?->date ?? '—' }}',
                             phone: '{{ $customer->phone_number }}',
@@ -42,6 +43,10 @@
             <p><strong>電話番号:</strong> <span x-text="modalData.phone"></span></p>
             <p><strong>登録日時:</strong> <span x-text="modalData.created"></span></p>
             <div class="text-right mt-4">
+                <button @click="showModal = false; window.location.href = '/customers/' + modalData.customer_id + '/edit'"
+                        class="px-4 py-1 bg-green-200 rounded hover:bg-green-300 mr-2">
+                    編集
+                </button>
                 <button @click="showModal = false" class="px-4 py-1 bg-gray-200 rounded hover:bg-gray-300">
                     閉じる
                 </button>

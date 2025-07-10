@@ -8,6 +8,8 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\LineController;
+use App\Http\Controllers\WorkShiftController;
+
 
 
 use Illuminate\Support\Facades\Route;
@@ -57,6 +59,37 @@ Route::get('/reservations/today', [ReservationController::class, 'showTodaySched
     Route::get('/employees', [EmployeeController::class, 'index'])->name('employees.index');
     Route::get('/menus', [MenuController::class, 'index'])->name('menus.index');
     Route::get('/line', [LineController::class, 'index'])->name('line.index');
+
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+    //＝＝＝＝＝＝＝CUSTOMER＝＝＝＝＝＝＝＝
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+    //ーーーーーーーーー[INDEX]ーーーーーーーーーーーー
+    //顧客総覧
+    Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
+    
+    //ーーーーーーーーー[EDIT]ーーーーーーーーー
+    //顧客情報の編集
+    Route::get('/customers/{customer_id}/edit', [CustomerController::class, 'edit'])->name('customers.edit');
+    //顧客情報の更新
+    Route::put('/customers/{customer_id}', [CustomerController::class, 'update'])->name('customers.update');
+
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+    //＝＝＝＝＝＝＝EMPLOYEE＝＝＝＝＝＝＝＝
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+    //ーーーーーーーーー[INDEX]ーーーーーーーーーーーー
+    //従業員総覧
+    Route::get('/employees', [EmployeeController::class, 'index'])->name('employees.index');
+
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+    //＝＝＝＝＝＝＝WORK_SHIFT＝＝＝＝＝＝＝
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+    //ーーーーーーーーー[INDEX]ーーーーーーーーーーーー
+    //月毎のページ遷移
+    Route::get('/work_shifts', [WorkShiftController::class, 'index'])->name('workshift.index');
+    //編集画面遷移
+    Route::post('/work_shifts/bulk-update', [WorkShiftController::class, 'bulkUpdate'])->name('workshift.bulkUpdate');
+
+
 
 });
 

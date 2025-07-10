@@ -9,14 +9,13 @@ class Employee extends Model
 {
     use HasFactory;
 
-    // 主キーがUUIDで、自動増分しない
     protected $primaryKey = 'id';
     public $incrementing = false;
     protected $keyType = 'string';
 
     // 複数代入可能なカラム
     protected $fillable = [
-        'emp_id',
+        'employee_id',
         'name',
         'user_id',
         'image_id',
@@ -38,5 +37,9 @@ class Employee extends Model
         return $this->hasMany(Reservation::class, 'employee_id');
     }
 
+        public function workShifts()
+    {
+        return $this->hasMany(Workshift::class, 'employee_id', 'employee_id');
+    }
 
 }
