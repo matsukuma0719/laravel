@@ -4,10 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\LineMessage;
 
 class Customer extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'customer_id',
+        'name',
+        'phone_number',
+        'employee_id',
+    ];
 
     public function reservations()
     {
@@ -19,6 +28,17 @@ class Customer extends Model
     {
         return $this->hasOne(\App\Models\Reservation::class, 'customer_id', 'customer_id')->latestOfMany('date');
     }
+
+public function messages()
+{
+    return $this->hasMany(\App\Models\LineMessage::class, 'user_id', 'user_id');
+}
+
+
+public function latestMessage()
+{
+    return $this->hasOne(\App\Models\LineMessage::class, 'user_id', 'user_id')->latestOfMany('sent_at');
+}
 
 
 }

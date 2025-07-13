@@ -7,9 +7,9 @@ use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\MenuController;
-use App\Http\Controllers\LineController;
 use App\Http\Controllers\WorkShiftController;
-
+use App\Http\Controllers\LineMessageController;
+use App\Http\Controllers\MessageController;
 
 
 use Illuminate\Support\Facades\Route;
@@ -52,13 +52,6 @@ Route::get('/reservations/today', [ReservationController::class, 'showTodaySched
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard');
 
-    // 必要に応じて他のリソースルート（customers, employees など）を追加
-    // Route::resource('customers', CustomerController::class);
-
-    Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
-    Route::get('/employees', [EmployeeController::class, 'index'])->name('employees.index');
-    Route::get('/menus', [MenuController::class, 'index'])->name('menus.index');
-    Route::get('/line', [LineController::class, 'index'])->name('line.index');
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
     //＝＝＝＝＝＝＝CUSTOMER＝＝＝＝＝＝＝＝
@@ -68,7 +61,6 @@ Route::get('/reservations/today', [ReservationController::class, 'showTodaySched
     Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
     
     //ーーーーーーーーー[EDIT]ーーーーーーーーー
-    //顧客情報の編集
     Route::get('/customers/{customer_id}/edit', [CustomerController::class, 'edit'])->name('customers.edit');
     //顧客情報の更新
     Route::put('/customers/{customer_id}', [CustomerController::class, 'update'])->name('customers.update');
@@ -77,19 +69,41 @@ Route::get('/reservations/today', [ReservationController::class, 'showTodaySched
     //＝＝＝＝＝＝＝EMPLOYEE＝＝＝＝＝＝＝＝
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
     //ーーーーーーーーー[INDEX]ーーーーーーーーーーーー
-    //従業員総覧
     Route::get('/employees', [EmployeeController::class, 'index'])->name('employees.index');
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
     //＝＝＝＝＝＝＝WORK_SHIFT＝＝＝＝＝＝＝
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
     //ーーーーーーーーー[INDEX]ーーーーーーーーーーーー
-    //月毎のページ遷移
     Route::get('/work_shifts', [WorkShiftController::class, 'index'])->name('workshift.index');
     //編集画面遷移
     Route::post('/work_shifts/bulk-update', [WorkShiftController::class, 'bulkUpdate'])->name('workshift.bulkUpdate');
 
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+    //＝＝＝＝＝＝＝MENU＝＝＝＝＝＝＝＝＝＝
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+    //ーーーーーーーーー[INDEX]ーーーーーーーーーーーー
+    // メニュー一覧
+    Route::get('/menus', [MenuController::class, 'index'])->name('menus.index');
+    // メニュー詳細（必要なら）
+    Route::get('/menus/{menu}', [MenuController::class, 'show'])->name('menus.show');
+    // メニュー作成（管理用）
+    Route::get('/menus/create', [MenuController::class, 'create'])->name('menus.create');
+    Route::post('/menus', [MenuController::class, 'store'])->name('menus.store');
+    // メニュー編集（管理用）
+    Route::get('/menus/{menu}/edit', [MenuController::class, 'edit'])->name('menus.edit');
+    Route::put('/menus/{menu}', [MenuController::class, 'update'])->name('menus.update');
+    // メニュー削除
+    Route::delete('/menus/{menu}', [MenuController::class, 'destroy'])->name('menus.destroy');
 
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+    //＝＝＝＝＝＝＝LINE＝＝＝＝＝＝＝＝＝＝
+    //ーーーーーーーーー[INDEX]ーーーーーーーーーーーー
+    //webhook記述はapi.phpにinde
+    // 一覧ページ（uuid不要）
+    Route::get('/line', [LineMessageController::class, 'index'])->name('line.index');
+    // 顧客個別ページ
+    //Route::get('/line/{customer_id}', [LineMessageController::class, 'show'])->name('line.messages.index');
 
 });
 
