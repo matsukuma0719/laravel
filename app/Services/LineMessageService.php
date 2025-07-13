@@ -2,92 +2,56 @@
 
 namespace App\Services;
 
-use GuzzleHttp\Client;
-use LINE\Clients\MessagingApi\Api\MessagingApiApi;
-use LINE\Clients\MessagingApi\Configuration;
-use LINE\Clients\MessagingApi\Model\ReplyMessageRequest;
-use LINE\Clients\MessagingApi\Model\TextMessage;
-use LINE\Clients\MessagingApi\Model\QuickReply;
-use LINE\Clients\MessagingApi\Model\QuickReplyItem;
-use LINE\Clients\MessagingApi\Model\MessageAction;
-use Nyholm\Psr7\Factory\Psr17Factory;
 use LINE\LINEBot;
 use LINE\LINEBot\HTTPClient\CurlHTTPClient;
+use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
+use LINE\LINEBot\MessageBuilder\QuickReplyBuilder;
+use LINE\LINEBot\MessageBuilder\QuickReplyButtonBuilder;
+use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateMessageBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonsTemplate;
+use Illuminate\Support\Facades\Log;
 
 class LineMessageService
 {
-    protected MessagingApiApi $client;
+    protected $bot;
 
-    public function getUserProfile(string $userId): array
+    public function __construct()
     {
-        try {
-            $response = $this->client->get("/v2/bot/profile/{$userId}", [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . config('services.line.channel_access_token'),
-                ],
-            ]);
-            return json_decode($response->getBody(), true);
-        } catch (\Exception $e) {
-            \Log::error('ユーザープロフィール取得エラー: ' . $e->getMessage());
-            return [];
-        }
+        $channelToken = config('services.line.channel_access_token');
+        $channelSecret = config('services.line.channel_secret');
+
+        $httpClient = new CurlHTTPClient($channelToken);
+        $this->bot = new LINEBot($httpClient, ['channelSecret' => $channelSecret]);
     }
 
-
-public function __construct()
-{
-    $config = Configuration::getDefaultConfiguration()
-        ->setAccessToken(config('services.line.channel_access_token'));
-
-    $this->client = new Client(); // GuzzleHttp\Client
-    $this->messagingApi = new MessagingApiApi($this->client, $config);
-}
-
-    public function sendText(string $replyToken, string $text): void
+    public function getProfile($userId)
     {
-        $message = new TextMessage([
-            'type' => 'text',
-            'text' => $text
-        ]);
+        $response = $this->bot->getProfile($userId);
+        if (!$response->isSucceeded()) return [];
 
-        $request = new ReplyMessageRequest([
-            'replyToken' => $replyToken,
-            'messages' => [$message]
-        ]);
-
-        $this->client->replyMessage($request);
+        return json_decode($response->getRawBody(), true);
     }
 
-    public function sendQuickReply(string $replyToken, array $options): void
+    public function sendText($replyToken, $text)
     {
-        $items = [];
+        $message = new TextMessageBuilder($text);
+        $this->bot->replyMessage($replyToken, $message);
+    }
 
+    public function sendQuickReply($replyToken, $options)
+    {
+        $buttons = [];
         foreach ($options as $label) {
-            $action = new MessageAction([
-                'label' => $label,
-                'text' => $label
-            ]);
-
-            $items[] = new QuickReplyItem([
-                'action' => $action
-            ]);
+            $action = new MessageTemplateActionBuilder($label, $label);
+            $buttons[] = new QuickReplyButtonBuilder($action);
         }
 
-        $quickReply = new QuickReply(['items' => $items]);
+        $quickReply = new QuickReplyBuilder($buttons);
+        $message = new TextMessageBuilder("メニューを選択してください", $quickReply);
 
-        $message = new TextMessage([
-            'type' => 'text',
-            'text' => 'ご希望の項目を選択してください',
-            'quickReply' => $quickReply
-        ]);
-
-        $request = new ReplyMessageRequest([
-            'replyToken' => $replyToken,
-            'messages' => [$message]
-        ]);
-
-        $this->client->replyMessage($request);
+        $this->bot->replyMessage($replyToken, $message);
     }
 
-    // Flexメッセージ送信用のメソッドなども今後追加可能
+    // Flex Message用などの他関数も同様にここへ…
 }

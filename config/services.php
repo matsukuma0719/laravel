@@ -14,9 +14,11 @@ return [
     |
     */
 
-    'line' => [
+   'line' => [
     'channel_access_token' => env('LINE_CHANNEL_ACCESS_TOKEN'),
-    ],
+    'channel_secret' => env('LINE_CHANNEL_SECRET'),
+],
+
 
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),
