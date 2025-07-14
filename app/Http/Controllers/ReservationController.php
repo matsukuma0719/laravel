@@ -13,6 +13,25 @@ use Illuminate\Support\Carbon;
 class ReservationController extends Controller
 {
 
+     public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'emp_name'      => 'required|string',
+            'date'          => 'required|date',
+            'start_time'    => 'required|date_format:H:i',
+            'end_time'      => 'required|date_format:H:i',
+            'menu_name'     => 'required|string',
+            'uuid'          => 'required|uuid',
+            'user_id'       => 'required|string',
+            'customer_name' => 'required|string',
+        ]);
+
+        Reservation::create($validated);
+
+        return response()->json(['status' => 'OK'], 201);
+    }
+
+
     //ーーーーーーーーーー予約一覧を取得ーーーーーーーーーー
     public function index()
     {

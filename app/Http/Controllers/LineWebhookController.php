@@ -1,42 +1,66 @@
 <?php
 
-namespace App\Services;
+namespace App\Http\Controllers;
 
-use LINE\LINEBot;
-use LINE\LINEBot\HTTPClient\CurlHTTPClient;
-use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
-use LINE\LINEBot\MessageBuilder\QuickReplyMessageBuilder;
-use LINE\LINEBot\MessageBuilder\QuickReplyBuilder\QuickReplyButtonBuilder;
-use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use App\Services\LineMessageService;
+use App\Models\Customer;
+use App\Models\Menu;
+use App\Models\Employee;
+use App\Models\EmployeeMenu;
+use App\Models\Reservation;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Carbon;
 
-class LineMessageService
+class LineWebhookController extends Controller
 {
-    protected $bot;
+    protected $line;
 
-    public function __construct()
+    public function __construct(LineMessageService $lineMessageService)
     {
-        $httpClient = new CurlHTTPClient(config('services.line.channel_access_token'));
-        $this->bot = new LINEBot($httpClient, [
-            'channelSecret' => config('services.line.channel_secret')
-        ]);
+        $this->line = $lineMessageService;
     }
 
-    public function sendText(string $replyToken, string $text): void
+    public function handle(Request $request)
     {
-        $message = new TextMessageBuilder($text);
-        $this->bot->replyMessage($replyToken, $message);
-    }
+        Log::debug('LINE Webhook受信：', $request->all());
 
-    public function sendQuickReply(string $replyToken, array $options): void
-    {
-        $buttons = [];
+        $event = $request->input('events')[0] ?? null;
+        if (!$event) return;
 
-        foreach ($options as $label) {
-            $action = new MessageTemplateActionBuilder($label, $label);
-            $buttons[] = new QuickReplyButtonBuilder($action);
+        $type = $event['type'] ?? null;
+        $userId = $event['source']['userId'] ?? null;
+        $replyToken = $event['replyToken'] ?? null;
+        $text = $event['message']['text'] ?? null;
+
+        // フォロー時
+        if ($type === 'follow') {
+            if (!$replyToken) return;
+            $profile = $this->line->getProfile($userId);
+            $name = $profile['displayName'] ?? '未取得';
+            Customer::firstOrCreate(
+                ['user_id' => $userId],
+                ['customer_id' => Str::uuid(), 'name' => $name]
+            );
+            $this->line->sendQuickReply($replyToken, ['📖メニューから選ぶ', '📅日付から選ぶ']);
+            return;
         }
 
-        $quickReply = new QuickReplyMessageBuilder('ご希望の項目を選択してください:', $buttons);
-        $this->bot->replyMessage($replyToken, $quickReply);
+        // 「予約」のクイックリプライ
+        if ($text === '予約') {
+            $this->line->sendQuickReply($replyToken, ['📖メニューから選ぶ', '📅日付から選ぶ']);
+            return;
+        }
+
+        // メニュー選択
+        if ($text === '📖メニューから選ぶ') {
+            $menus = Menu::all();
+            $this->line->sendMenuFlex($replyToken, $menus);
+            return;
+        }
+
+        // 以降は同様にメニュー→スタッフ→時間選択の処理
     }
 }
