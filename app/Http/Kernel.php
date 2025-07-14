@@ -39,8 +39,9 @@ class Kernel extends HttpKernel
      */
     protected $routeMiddleware = [
         'auth' => \App\Http\Middleware\Authenticate::class,
-        // ここに追加！
-        'allow.only.specific.ip' => \App\Http\Middleware\AllowOnlySpecificIp::class,
+
+      'allow.only.specific.ip' => \App\Http\Middleware\AllowOnlySpecificIp::class,
+
         // 他のミドルウェア
     ];
 }
