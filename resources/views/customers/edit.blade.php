@@ -11,19 +11,36 @@
             @csrf
             @method('PUT')
 
-            <div>
-                <label class="block font-medium text-sm">氏名（漢字）</label>
-                <input type="text" name="name" value="{{ old('name', $customer->name) }}" class="form-input w-full">
-            </div>
+<div class="relative p-6 border rounded-xl shadow bg-white">
 
+    <div class="flex gap-6 items-start">
+        {{-- 左側：名前とフリガナ（縦並び） --}}
+        <div class="flex flex-col gap-3 w-full max-w-md">
             <div>
-                <label class="block font-medium text-sm">フリガナ</label>
-                <input type="text" name="kana" value="{{ old('kana', $customer->kana) }}" class="form-input w-full">
+                <label class="block font-medium text-sm mb-1">氏名（漢字）</label>
+                <input type="text" name="name" value="{{ old('name', $customer->name) }}"
+                    class="w-full px-4 py-2 rounded-xl bg-blue-100 border-none focus:outline-none focus:ring-2 focus:ring-blue-300">
             </div>
-
             <div>
-                <label class="block font-medium text-sm">性別</label>
-                <select name="gender" class="form-select w-full">
+                <label class="block font-medium text-sm mb-1">フリガナ</label>
+                <input type="text" name="kana" value="{{ old('kana', $customer->kana) }}"
+                    class="w-full px-4 py-2 rounded-xl bg-blue-100 border-none focus:outline-none focus:ring-2 focus:ring-blue
+-300">
+            </div>
+        </div>
+
+        {{-- 右側：プロフィール画像 --}}
+        <div class="flex-shrink-0">
+            <img src="{{ $customer->image_url ?? 'https://via.placeholder.com/80' }}"
+                alt="プロフィール画像"
+                class="w-24 h-24 rounded-full object-cover border shadow">
+        </div>
+    </div>
+        <div class="grid grid-cols-2 gap-4 mt-3 mb-3">
+            <div class="flex flex-col">
+                <label class="block font-medium text-sm mb-2">性別</label>
+                <select name="gender"
+                        class="w-full px-4 py-2 rounded-xl bg-blue-100 border-none focus:outline-none focus:ring-2 focus:ring-blue-300">
                     <option value="">選択してください</option>
                     <option value="male" {{ old('gender', $customer->gender) === 'male' ? 'selected' : '' }}>男性</option>
                     <option value="female" {{ old('gender', $customer->gender) === 'female' ? 'selected' : '' }}>女性</option>
@@ -31,59 +48,72 @@
                 </select>
             </div>
 
-            <div>
-                <label class="block font-medium text-sm">生年月日</label>
-                <input type="date" name="birthday" value="{{ old('birthday', $customer->birthday) }}" class="form-input w-full">
+            <div class="flex flex-col">
+                <label class="block font-medium text-sm mb-2">生年月日</label>
+                <input type="date" name="birthday" value="{{ old('birthday', $customer->birthday) }}"
+                    class="w-full px-4 py-2 rounded-xl bg-blue-100 border-none focus:outline-none focus:ring-2 focus:ring-blue-300">
             </div>
+        </div>
 
-            <div>
-                <label class="block font-medium text-sm">電話番号</label>
-                <input type="text" name="phone_number" value="{{ old('phone_number', $customer->phone_number) }}" class="form-input w-full">
+        {{-- ここから1列ずつ --}}
+        <div class="mt-3 mb-3">
+            <label class="block font-medium text-sm text-sm mb-2">電話番号</label>
+            <input type="text" name="phone_number" value="{{ old('phone_number', $customer->phone_number) }}"
+                    class="w-full px-4 py-2 rounded-xl bg-blue-100 border-none focus:outline-none focus:ring-2 focus:ring-blue-300">
+        </div>
+
+       <div class="mt-3 mb-3">
+            <label class="block font-medium text-sm text-sm mb-2">メールアドレス</label>
+            <input type="email" name="email" value="{{ old('email', $customer->email) }}"
+                    class="w-full px-4 py-2 rounded-xl bg-blue-100 border-none focus:outline-none focus:ring-2 focus:ring-blue-300">
+        </div>
+
+        <div class="mt-3 mb-3">
+            <label class="block font-medium text-sm text-sm mb-2">住所</label>
+            <input type="text" name="address" value="{{ old('address', $customer->address) }}"
+                    class="w-full px-4 py-2 rounded-xl bg-blue-100 border-none focus:outline-none focus:ring-2 focus:ring-blue-300">
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+            <div class="mb-5">
+                <label class="block font-medium text-sm mb-2">初回来店日</label>
+                <input type="date" name="first_visit" value="{{ old('first_visit', $customer->first_visit) }}"
+                        class="w-full px-4 py-2 rounded-xl bg-blue-100 border-none focus:outline-none focus:ring-2 focus:ring-blue-300">
             </div>
-
-            <div>
-                <label class="block font-medium text-sm">メールアドレス</label>
-                <input type="email" name="email" value="{{ old('email', $customer->email) }}" class="form-input w-full">
+            <div class="mb-5">
+                <label class="block font-medium text-sm mb-2">最終来店日</label>
+                <input type="date" name="last_visit" value="{{ old('last_visit', $customer->last_visit) }}"
+                        class="w-full px-4 py-2 rounded-xl bg-blue-100 border-none focus:outline-none focus:ring-2 focus:ring-blue-300">
             </div>
+        </div>
 
-            <div>
-                <label class="block font-medium text-sm">住所</label>
-                <input type="text" name="address" value="{{ old('address', $customer->address) }}" class="form-input w-full">
+        <div class="grid grid-cols-2 gap-4">
+            <div class="mb-5">
+                <label class="block font-medium text-sm mb-2">来店回数</label>
+                <input type="number" name="visit_count" value="{{ old('visit_count', $customer->visit_count) }}"
+                        class="w-full px-4 py-2 rounded-xl bg-blue-100 border-none focus:outline-none focus:ring-2 focus:ring-blue-300">
             </div>
-
-            <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <label class="block font-medium text-sm">初回来店日</label>
-                    <input type="date" name="first_visit" value="{{ old('first_visit', $customer->first_visit) }}" class="form-input w-full">
-                </div>
-                <div>
-                    <label class="block font-medium text-sm">最終来店日</label>
-                    <input type="date" name="last_visit" value="{{ old('last_visit', $customer->last_visit) }}" class="form-input w-full">
-                </div>
+            <div class="mb-5">
+                <label class="block font-medium text-sm mb-2">紹介者</label>
+                <input type="text" name="referrer" value="{{ old('referrer', $customer->referrer) }}"
+                        class="w-full px-4 py-2 rounded-xl bg-blue-100 border-none focus:outline-none focus:ring-2 focus:ring-blue-300">
             </div>
+        </div>
 
-            <div>
-                <label class="block font-medium text-sm">来店回数</label>
-                <input type="number" name="visit_count" value="{{ old('visit_count', $customer->visit_count) }}" class="form-input w-full">
-            </div>
+       <div class="mb-5">
+            <label class="block font-medium text-sm mb-2">備考 / 特記事項</label>
+            <textarea name="notes" rows="4"
+                        class="w-full px-4 py-2 rounded-xl bg-blue-100 border-none focus:outline-none focus:ring-2 focus:ring-blue-300">{{ old('notes', $customer->notes) }}</textarea>
+        </div>
 
-            <div>
-                <label class="block font-medium text-sm">紹介者</label>
-                <input type="text" name="referrer" value="{{ old('referrer', $customer->referrer) }}" class="form-input w-full">
-            </div>
-
-            <div>
-                <label class="block font-medium text-sm">備考 / 特記事項</label>
-                <textarea name="notes" rows="4" class="form-textarea w-full">{{ old('notes', $customer->notes) }}</textarea>
-            </div>
-
-            <div class="text-right">
-                <button type="submit" class="px-5 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-                    更新する
-                </button>
-            </div>
-        </form>
-
+        <div class="text-right">
+            <button type="submit"
+                    class="px-5 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                更新する
+            </button>
+        </div>
+    </div> 
+    </form>
         {{-- 右カラム：利用履歴（読み取り専用） --}}
         <div class="space-y-6">
             <h3 class="text-lg font-semibold text-gray-700 mb-2">直近の利用履歴（3件）</h3>

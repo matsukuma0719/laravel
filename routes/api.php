@@ -22,9 +22,6 @@ Route::middleware([AllowOnlySpecificIp::class])->group(function () {
   
 
 Route::middleware(['allow.only.specific.ip'])->group(function () {
-    Route::post('/line/webhook', 'LineWebhookController@handle');
-    // 他のセキュアなAPIもまとめて入れてOK
-
-
-    });
+    Route::post('/line/webhook', [LineWebhookController::class, 'handle']);
+});
 });

@@ -10,6 +10,7 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\WorkShiftController;
 use App\Http\Controllers\LineMessageController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\RichMenuController;
 
 
 use Illuminate\Support\Facades\Route;
@@ -75,9 +76,9 @@ Route::get('/reservations/today', [ReservationController::class, 'showTodaySched
     //＝＝＝＝＝＝＝WORK_SHIFT＝＝＝＝＝＝＝
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
     //ーーーーーーーーー[INDEX]ーーーーーーーーーーーー
-    Route::get('/work_shifts', [WorkShiftController::class, 'index'])->name('workshift.index');
+    Route::get('/work_shifts', [WorkShiftController::class, 'index'])->name('work_shifts.index');
     //編集画面遷移
-    Route::post('/work_shifts/bulk-update', [WorkShiftController::class, 'bulkUpdate'])->name('workshift.bulkUpdate');
+    Route::post('/work_shifts/bulk-update', [WorkShiftController::class, 'bulkUpdate'])->name('work_shifts.bulkUpdate');
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
     //＝＝＝＝＝＝＝MENU＝＝＝＝＝＝＝＝＝＝
@@ -104,6 +105,11 @@ Route::get('/reservations/today', [ReservationController::class, 'showTodaySched
     Route::get('/line', [LineMessageController::class, 'index'])->name('line.index');
     // 顧客個別ページ
     //Route::get('/line/{customer_id}', [LineMessageController::class, 'show'])->name('line.messages.index');
+    //richmenu設定
+     Route::prefix('line/richmenu')->group(function () {
+    Route::get('/create', [RichMenuController::class, 'create'])->name('richmenu.create');
+    Route::post('/store', [RichMenuController::class, 'store'])->name('richmenu.store');
+});
 
 });
 

@@ -37,9 +37,9 @@ class Employee extends Model
         return $this->hasMany(Reservation::class, 'employee_id');
     }
 
-        public function workShifts()
-    {
-        return $this->hasMany(Workshift::class, 'employee_id', 'employee_id');
-    }
-
+public function workShifts()
+{
+    // 第2: work_shifts側のキー, 第3: employees側のキー
+    return $this->hasMany(\App\Models\WorkShift::class, 'employee_id', 'employee_id');
+}
 }

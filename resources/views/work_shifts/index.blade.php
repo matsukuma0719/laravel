@@ -4,7 +4,7 @@
 <div class="overflow-auto">
     <h2 class="text-xl font-bold mb-4">勤務シフト一覧</h2>
 
-    <form action="{{ route('workshift.bulkUpdate') }}" method="POST">
+    <form action="{{ route('work_shifts.bulkUpdate') }}" method="POST">
         @csrf
 
         <div class="flex justify-end mb-2 space-x-2">
@@ -30,7 +30,7 @@
             @endphp
 
             <div class="flex items-center justify-between mb-4">
-                <a href="{{ route('workshift.index', ['year' => $prevYear, 'month' => $prevMonth]) }}" class="text-blue-600 hover:underline">
+                <a href="{{ route('work_shifts.index', ['year' => $prevYear, 'month' => $prevMonth]) }}" class="text-blue-600 hover:underline">
                     {{ $prevMonth }}月
                 </a>
 
@@ -38,7 +38,7 @@
                     {{ $year }}年{{ $month }}月
                 </span>
 
-                <a href="{{ route('workshift.index', ['year' => $nextYear, 'month' => $nextMonth]) }}" class="text-blue-600 hover:underline">
+                <a href="{{ route('work_shifts.index', ['year' => $nextYear, 'month' => $nextMonth]) }}" class="text-blue-600 hover:underline">
                     {{ $nextMonth }}月
                 </a>
             </div>
@@ -67,7 +67,7 @@
                             @foreach ($dates as $date)
                                 @php
                                     $dateString = \Carbon\Carbon::parse($date)->toDateString();
-                                    $shift = $employee->workShifts->firstWhere('work_date', $dateString);
+                                    $shift = $employee->workshifts->firstWhere('work_date', $dateString);
                                     $value = $shift
                                         ? convertToCode(
                                             \Carbon\Carbon::parse($shift->start_time)->format('H:i:s'),
@@ -79,7 +79,7 @@
                                     <div class="relative">
                                         <span class="display-span">{{ $value }}</span>
                                         <input type="text"
-                                               name="work_shifts[{{ $employee->employee_id }}][{{ $dateString }}]"
+                                               name="work_shifts [{{ $employee->employee_id }}][{{ $dateString }}]"
                                                value="{{ $value }}"
                                                class="work-input w-full text-center px-0 py-1 border-none focus:outline-none hidden"
                                                style="height: 30px;" />
