@@ -11,7 +11,7 @@ use App\Http\Controllers\WorkShiftController;
 use App\Http\Controllers\LineMessageController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\RichMenuController;
-
+use App\Http\Controllers\LineSettingController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -103,14 +103,25 @@ Route::get('/reservations/today', [ReservationController::class, 'showTodaySched
     //webhook記述はapi.phpにinde
     // 一覧ページ（uuid不要）
     Route::get('/line', [LineMessageController::class, 'index'])->name('line.index');
+    Route::get('/line/richmenu', [RichMenuController::class, 'index'])->name('richmenu.index');
     // 顧客個別ページ
     //Route::get('/line/{customer_id}', [LineMessageController::class, 'show'])->name('line.messages.index');
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+    //＝＝＝＝＝＝＝RICHMENU＝＝＝＝＝＝＝＝
+    //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
     //richmenu設定
-     Route::prefix('line/richmenu')->group(function () {
-    Route::get('/create', [RichMenuController::class, 'create'])->name('richmenu.create');
-    Route::post('/store', [RichMenuController::class, 'store'])->name('richmenu.store');
-});
+    Route::prefix('line/richmenu')->group(function () {
+        Route::get('/create', [RichMenuController::class, 'create'])->name('richmenu.create');
+        Route::post('/{id}/apply', [RichMenuController::class, 'apply'])->name('richmenu.apply'); 
+        Route::get('/edit', [RichMenuController::class, 'edit'])->name('richmenu.edit');
+        Route::get('/{id}/edit', [RichMenuController::class, 'edit'])->name('richmenu.edit');
+        Route::post('/store', [RichMenuController::class, 'store'])->name('richmenu.store');
+        Route::put('/{id}', [RichMenuController::class, 'update'])->name('richmenu.update');
 
+        
+        Route::get('/setting', [LineSettingController::class, 'show'])->name('richmenu.setting');
+        Route::post('/setting', [LineSettingController::class, 'store'])->name('richmenu.setting.store');
+    });
 });
 
 require __DIR__.'/auth.php';
