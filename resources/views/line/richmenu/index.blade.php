@@ -7,7 +7,7 @@
         <a href="{{ route('richmenu.create') }}" class="bg-green-600 dark:bg-green-700 text-white px-4 py-2 rounded hover:bg-green-700 dark:hover:bg-green-600">設定</a>
     </div>
 
-    <div class="overflow-auto bg-white dark:bg-gray-900 rounded-xl shadow">
+    <div class="overflow-auto bg-white dark:bg-gray-900 rounded-xl shadow mb-10">
         <table class="min-w-full table-auto text-center text-gray-700 dark:text-gray-200 border-collapse">
             <thead class="bg-gray-700 text-gray-200 text-sm">
                 <tr>

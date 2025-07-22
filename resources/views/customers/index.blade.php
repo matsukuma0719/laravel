@@ -4,7 +4,7 @@
 <div x-data="{ showModal: false, modalData: {} }" class="max-w-5xl mx-auto py-8 px-4">
     <h2 class="text-xl font-bold mb-2 text-gray-800 dark:text-gray-100">顧客一覧</h2>
 
-    <div class="overflow-auto border rounded-lg bg-white dark:bg-gray-800 shadow">
+    <div class="overflow-auto border rounded-lg bg-white dark:bg-gray-800 shadow mb-10">
         <table class="min-w-full text-sm text-center text-gray-700 dark:text-gray-200 border-collapse">
             <thead class="bg-gray-700 text-gray-200 uppercase text-xs">
                 <tr>
@@ -37,7 +37,7 @@
     <!-- モーダル -->
     <div x-show="showModal" class="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50" style="display: none;">
         <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-96">
-            <h2 class="text-lg font-bold mb-4 text-gray-800 dark:text-gray-100">顧客詳細</h2>
+            <h2 class="text-lg font-bold mb-2 text-gray-800 dark:text-gray-100">顧客詳細</h2>
             <p><strong>名前:</strong> <span x-text="modalData.name"></span></p>
             <p><strong>最終利用日:</strong> <span x-text="modalData.latest_date"></span></p>
             <p><strong>電話番号:</strong> <span x-text="modalData.phone"></span></p>

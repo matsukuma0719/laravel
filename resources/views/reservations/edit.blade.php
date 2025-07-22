@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="container mx-auto px-4 py-6 text-white">
-    <h1 class="text-2xl font-bold mb-6">予約編集</h1>
+    <h1 class="text-2xl font-bold mb-2">予約編集</h1>
 
     <form action="{{ route('reservations.update', $reservation->id ?? 0) }}" method="POST" class="bg-gray-800 p-6 rounded shadow-md max-w-xl">
         @csrf

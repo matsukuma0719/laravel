@@ -4,7 +4,7 @@
 <div x-data="{ showModal: false, modalData: {} }" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
     <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-2">本日の予約スケジュール</h2>
 
-    <div class="overflow-auto border rounded-lg shadow bg-white dark:bg-gray-800">
+    <div class="overflow-auto border rounded-lg shadow bg-white dark:bg-gray-800 mb-10">
         <table class="min-w-full text-sm text-center text-gray-700 dark:text-gray-200 border-collapse">
             <thead class="bg-gray-700 text-gray-200 uppercase text-xs">
                 <tr>
@@ -54,7 +54,7 @@
         style="display: none;"
     >
         <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-96">
-            <h2 class="text-lg font-bold mb-4 text-gray-800 dark:text-gray-100">予約詳細</h2>
+            <h2 class="text-lg font-bold mb-2 text-gray-800 dark:text-gray-100">予約詳細</h2>
             <p><strong>従業員:</strong> <span x-text="modalData.employee"></span></p>
             <p><strong>メニュー:</strong> <span x-text="modalData.menu"></span></p>
             <p><strong>日付:</strong> <span x-text="modalData.date"></span></p>

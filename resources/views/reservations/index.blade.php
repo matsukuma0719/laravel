@@ -4,7 +4,7 @@
     <div class="max-w-7xl mx-auto px-4 py-6">
         <h1 class="text-2xl font-bold mb-2 dark:text-gray-100">予約一覧</h1>
 
-        <div class="overflow-auto bg-white dark:bg-gray-800 shadow rounded-lg">
+        <div class="overflow-auto bg-white dark:bg-gray-800 shadow rounded-lg mb-10">
             <table class="min-w-full divide-y divide-gray-200 text-gray-700 dark:text-gray-200">
                 <thead class="bg-gray-700 text-gray-200">
                     <tr>

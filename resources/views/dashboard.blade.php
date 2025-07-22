@@ -5,7 +5,7 @@
     <div class="max-w-7xl mx-auto">
         <div id="nowTime"></div>
         <h3 class="text-lg font-bold mb-2 dark:text-gray-100">本日の予約スケジュール</h3>
-        <div class="overflow-auto border rounded-lg shadow bg-white dark:bg-gray-800">
+        <div class="overflow-auto border rounded-lg shadow bg-white dark:bg-gray-800 mb-10">
             <table class="min-w-full text-xs text-center text-gray-700 dark:text-gray-200 border-collapse">
                 <thead class="bg-gray-700 text-gray-200 uppercase text-[13px]">
                     <tr>
@@ -40,7 +40,7 @@
         </div>
          <div class="mb-8">
         <h3 class="text-lg font-bold mb-2 dark:text-gray-100">本日の直近予約5件</h3>
-        <div class="overflow-auto">
+        <div class="overflow-auto mb-10">
             <table class="min-w-full text-xs text-gray-700 dark:text-gray-200 border-collapse">
                 <thead class="bg-gray-700 text-gray-200 uppercase">
                     <tr>

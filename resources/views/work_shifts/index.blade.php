@@ -44,7 +44,7 @@
             </div>
         </div>
 
-        <div class="overflow-auto border rounded-lg shadow bg-white dark:bg-gray-800">
+        <div class="overflow-auto border rounded-lg shadow bg-white dark:bg-gray-800 mb-10">
             <table class="min-w-full text-sm text-center text-gray-700 dark:text-gray-200 border-collapse">
                 <thead class="bg-gray-700 text-gray-200 uppercase text-xs">
                     <tr class="bg-gray-100">
