@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="overflow-auto">
-    <h2 class="text-xl font-bold mb-4">勤務シフト一覧</h2>
+    <h2 class="text-xl font-bold mb-4 dark:text-gray-100">勤務シフト一覧</h2>
 
     <form action="{{ route('work_shifts.bulkUpdate') }}" method="POST">
         @csrf
@@ -30,7 +30,7 @@
             @endphp
 
             <div class="flex items-center justify-between mb-4">
-                <a href="{{ route('work_shifts.index', ['year' => $prevYear, 'month' => $prevMonth]) }}" class="text-blue-600 hover:underline">
+                <a href="{{ route('work_shifts.index', ['year' => $prevYear, 'month' => $prevMonth]) }}" class="text-blue-600 dark:text-blue-400 hover:underline">
                     {{ $prevMonth }}月
                 </a>
 
@@ -38,15 +38,15 @@
                     {{ $year }}年{{ $month }}月
                 </span>
 
-                <a href="{{ route('work_shifts.index', ['year' => $nextYear, 'month' => $nextMonth]) }}" class="text-blue-600 hover:underline">
+                <a href="{{ route('work_shifts.index', ['year' => $nextYear, 'month' => $nextMonth]) }}" class="text-blue-600 dark:text-blue-400 hover:underline">
                     {{ $nextMonth }}月
                 </a>
             </div>
         </div>
 
-        <div class="overflow-auto border rounded-lg shadow bg-white">
-            <table class="min-w-full text-sm text-center text-gray-700 border-collapse">
-                <thead class="bg-gray-100 text-gray-600 uppercase text-xs">
+        <div class="overflow-auto border rounded-lg shadow bg-white dark:bg-gray-800">
+            <table class="min-w-full text-sm text-center text-gray-700 dark:text-gray-300 border-collapse">
+                <thead class="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 uppercase text-xs">
                     <tr class="bg-gray-100">
                         <th class="border border-gray-300 px-2 py-1 text-left">従業員名</th>
                         @foreach ($dates as $date)
@@ -60,7 +60,7 @@
                 </thead>
                 <tbody>
                     @foreach ($employees as $employee)
-                        <tr class="hover:bg-gray-50">
+                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
                             <td class="border border-gray-300 px-2 py-1 font-semibold whitespace-nowrap">
                                 {{ $employee->name }}
                             </td>

@@ -2,11 +2,11 @@
 
 @section('content')
 <div class="max-w-7xl mx-auto px-4 py-8">
-    <h2 class="text-xl font-bold text-gray-800 mb-6">従業員一覧</h2>
+    <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-6">従業員一覧</h2>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
         @foreach ($employees as $emp)
-            <div class="bg-white shadow rounded-lg p-4 text-center">
+            <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-4 text-center">
                 {{-- 丸アイコン：画像 or 頭文字 --}}
                <div class="relative">
     @if ($emp->image_id)
@@ -24,14 +24,14 @@
             mb_substr($nameParts[1] ?? '', 0, 1)
         );
     @endphp
-    <div class="w-20 h-20 rounded-full bg-gray-300 text-white font-bold text-xl flex items-center justify-center mx-auto"
+    <div class="w-20 h-20 rounded-full bg-gray-300 dark:bg-gray-700 text-white font-bold text-xl flex items-center justify-center mx-auto"
          style="{{ $emp->image_id ? 'display: none;' : '' }}">
         {{ $initials }}
     </div>
 </div>
 
                 {{-- 名前 --}}
-                <p class="mt-3 text-sm font-semibold text-gray-800">{{ $emp->name }}</p>
+                <p class="mt-3 text-sm font-semibold text-gray-800 dark:text-gray-200">{{ $emp->name }}</p>
             </div>
         @endforeach
     </div>

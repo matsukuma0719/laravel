@@ -5,9 +5,9 @@
     <div class="max-w-7xl mx-auto">
         <div id="nowTime"></div>
         <h3 class="text-lg font-bold mb-2">本日の予約スケジュール</h3>
-        <div class="overflow-auto border rounded-lg shadow bg-white">
-            <table class="min-w-full text-xs text-center text-gray-700 border-collapse">
-                <thead class="bg-gray-100 text-gray-600 uppercase text-[13px]">
+        <div class="overflow-auto border rounded-lg shadow bg-white dark:bg-gray-800">
+            <table class="min-w-full text-xs text-center text-gray-700 dark:text-gray-300 border-collapse">
+                <thead class="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 uppercase text-[13px]">
                     <tr>
                         <th class="px-1 py-1 border">従業員</th>
                         @foreach ($timeSlots as $time)
@@ -17,7 +17,7 @@
                 </thead>
                 <tbody>
                     @foreach ($employees as $employee)
-                        <tr class="hover:bg-gray-50">
+                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
                             <td class="px-1 py-1 border text-left text-[13px] whitespace-nowrap">
                                 {{ $employee->name }}
                             </td>
@@ -29,7 +29,7 @@
                                                $r->end_time > $time;
                                     });
                                 @endphp
-                                <td class="px-1 py-1 border text-[13px] {{ $rsv ? 'bg-blue-100 text-blue-900 font-semibold' : '' }}">
+                                <td class="px-1 py-1 border text-[13px] {{ $rsv ? 'bg-blue-100 dark:bg-blue-900 text-blue-900 dark:text-blue-100 font-semibold' : '' }}">
                                     {{ $rsv->menu->menu_name ?? '' }}
                                 </td>
                             @endforeach
@@ -41,8 +41,8 @@
          <div class="mb-8">
         <h3 class="text-lg font-bold mb-2">本日の直近予約5件</h3>
         <div class="overflow-x-auto">
-            <table class="min-w-full text-xs border">
-                <thead class="bg-gray-100 text-gray-600 uppercase">
+            <table class="min-w-full text-xs border text-gray-700 dark:text-gray-300">
+                <thead class="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 uppercase">
                     <tr>
                         <th class="px-2 py-2 border">時間</th>
                         <th class="px-2 py-2 border">顧客名</th>
@@ -52,7 +52,7 @@
                 </thead>
                 <tbody>
                     @foreach ($recentReservations as $r)
-                        <tr>
+                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
                             <td class="border px-2 py-1">{{ $r->start_time }}〜{{ $r->end_time }}</td>
                             <td class="border px-2 py-1">{{ $r->customer->name ?? '' }}</td>
                             <td class="border px-2 py-1">{{ $r->menu->menu_name ?? '' }}</td>
@@ -69,17 +69,17 @@
         <h3 class="text-lg font-bold mb-2">本日の出勤スタッフ</h3>
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
             @foreach ($workEmployees as $emp)
-                <div class="bg-white shadow rounded-lg p-3 flex flex-col items-center border">
+                <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-3 flex flex-col items-center border border-gray-200 dark:border-gray-600">
                     {{-- 画像表示（なければイニシャル円） --}}
                     @if($emp->image_id)
                         <img src="{{ asset('storage/' . $emp->image_id) }}" class="w-12 h-12 rounded-full mb-2 object-cover" alt="スタッフ画像">
                     @else
-                        <div class="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center text-lg font-bold mb-2 text-gray-700">
+                        <div class="w-12 h-12 rounded-full bg-gray-300 dark:bg-gray-700 flex items-center justify-center text-lg font-bold mb-2 text-gray-700 dark:text-gray-200">
                             {{ mb_substr($emp->name, 0, 1) }}
                         </div>
                     @endif
                     <div class="font-semibold">{{ $emp->name }}</div>
-                    <div class="text-xs text-gray-500">{{ $emp->role }}</div>
+                    <div class="text-xs text-gray-500 dark:text-gray-400">{{ $emp->role }}</div>
                 </div>
             @endforeach
         </div>
