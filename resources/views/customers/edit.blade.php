@@ -11,7 +11,7 @@
             @csrf
             @method('PUT')
 
-<div class="relative p-6 border rounded-xl shadow bg-white dark:bg-gray-800">
+<div class="relative p-6 border border-gray-300 dark:border-gray-500 rounded-xl shadow bg-white dark:bg-gray-800">
 
     <div class="flex gap-6 items-start">
         {{-- 左側：名前とフリガナ（縦並び） --}}
@@ -116,10 +116,10 @@
     </form>
         {{-- 右カラム：利用履歴（読み取り専用） --}}
         <div class="space-y-6">
-            <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">直近の利用履歴（3件）</h3>
+            <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-2">直近の利用履歴（3件）</h3>
 
             @foreach ($customer->reservations->sortByDesc('date')->take(3) as $rsv)
-                <div class="border p-4 rounded-lg bg-gray-50 dark:bg-gray-700 space-y-2">
+                <div class="border border-gray-300 dark:border-gray-500 p-4 rounded-lg bg-gray-50 dark:bg-gray-700 space-y-2 dark:text-gray-200">
                     <p><strong>実施日:</strong> {{ $rsv->date }}</p>
                     <p><strong>キャンペーン適用:</strong> {{ $rsv->campaign_applied ? '✔' : '—' }}</p>
                     <p><strong>施術メニュー:</strong> {{ $rsv->menu_name }}</p>

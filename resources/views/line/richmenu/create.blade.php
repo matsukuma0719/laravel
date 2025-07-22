@@ -115,7 +115,7 @@
                     <canvas id="crop-canvas" width="2500" height="1686"></canvas>
                     <div id="area-overlay"></div>
                 </div>
-                <div class="text-xs mt-2 text-gray-700 dark:text-gray-300 text-center">
+                <div class="text-xs mt-2 text-gray-700 dark:text-gray-200 text-center">
                     画像をドラッグやピンチで移動・拡大縮小、見せたい部分に合わせてください
                 </div>
             </div>

@@ -6,7 +6,7 @@
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
         @foreach ($employees as $emp)
-            <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-4 text-center">
+            <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-4 text-center border border-gray-200 dark:border-gray-500">
                 {{-- 丸アイコン：画像 or 頭文字 --}}
                <div class="relative">
     @if ($emp->image_id)

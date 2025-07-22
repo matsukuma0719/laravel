@@ -5,13 +5,13 @@
     <h2 class="text-xl font-bold mb-6 text-gray-800 dark:text-gray-100">顧客一覧</h2>
 
     <div class="overflow-auto border rounded-lg bg-white dark:bg-gray-800 shadow">
-        <table class="min-w-full text-sm text-left text-gray-700 dark:text-gray-300 border-collapse">
-            <thead class="bg-gray-100 dark:bg-gray-700 uppercase text-xs text-gray-600 dark:text-gray-300">
+        <table class="min-w-full text-sm text-left text-gray-700 dark:text-gray-200 border-collapse">
+            <thead class="bg-gray-100 dark:bg-gray-700 uppercase text-xs text-gray-600 dark:text-gray-200">
                 <tr>
-                    <th class="px-4 py-2 border">名前</th>
-                    <th class="px-4 py-2 border">最終利用日</th>
-                    <th class="px-4 py-2 border">電話番号</th>
-                    <th class="px-4 py-2 border">登録日</th>
+                    <th class="px-4 py-2 border-y border-gray-300 dark:border-gray-500">名前</th>
+                    <th class="px-4 py-2 border-y border-gray-300 dark:border-gray-500">最終利用日</th>
+                    <th class="px-4 py-2 border-y border-gray-300 dark:border-gray-500">電話番号</th>
+                    <th class="px-4 py-2 border-y border-gray-300 dark:border-gray-500">登録日</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,10 +24,10 @@
                             phone: '{{ $customer->phone_number }}',
                             created: '{{ $customer->created_at->format('Y-m-d H:i') }}'
                         }">
-                        <td class="px-4 py-2 border">{{ $customer->name }}</td>
-                        <td class="px-4 py-2 border">{{ $customer->latestReservation?->date ?? '—' }}</td>
-                        <td class="px-4 py-2 border">{{ $customer->phone_number }}</td>
-                        <td class="px-4 py-2 border">{{ $customer->created_at->format('Y-m-d') }}</td>
+                        <td class="px-4 py-2 border-y border-gray-300 dark:border-gray-500 dark:text-gray-200">{{ $customer->name }}</td>
+                        <td class="px-4 py-2 border-y border-gray-300 dark:border-gray-500 dark:text-gray-200">{{ $customer->latestReservation?->date ?? '—' }}</td>
+                        <td class="px-4 py-2 border-y border-gray-300 dark:border-gray-500 dark:text-gray-200">{{ $customer->phone_number }}</td>
+                        <td class="px-4 py-2 border-y border-gray-300 dark:border-gray-500 dark:text-gray-200">{{ $customer->created_at->format('Y-m-d') }}</td>
                     </tr>
                 @endforeach
             </tbody>

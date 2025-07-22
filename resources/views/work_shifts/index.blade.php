@@ -45,13 +45,13 @@
         </div>
 
         <div class="overflow-auto border rounded-lg shadow bg-white dark:bg-gray-800">
-            <table class="min-w-full text-sm text-center text-gray-700 dark:text-gray-300 border-collapse">
-                <thead class="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 uppercase text-xs">
+            <table class="min-w-full text-sm text-center text-gray-700 dark:text-gray-200 border-collapse">
+                <thead class="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-200 uppercase text-xs">
                     <tr class="bg-gray-100">
-                        <th class="border border-gray-300 px-2 py-1 text-left">従業員名</th>
+                        <th class="border border-gray-300 dark:border-gray-500 px-2 py-1 text-left">従業員名</th>
                         @foreach ($dates as $date)
                             @php $carbonDate = \Carbon\Carbon::parse($date); @endphp
-                            <th class="border border-gray-300 px-2 py-1 whitespace-nowrap text-center">
+                            <th class="border border-gray-300 dark:border-gray-500 px-2 py-1 whitespace-nowrap text-center">
                                 {{ $carbonDate->format('n/j') }}<br>
                                 {{ ['日','月','火','水','木','金','土'][$carbonDate->dayOfWeek] }}
                             </th>
@@ -61,7 +61,7 @@
                 <tbody>
                     @foreach ($employees as $employee)
                         <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
-                            <td class="border border-gray-300 px-2 py-1 font-semibold whitespace-nowrap">
+                            <td class="border border-gray-300 dark:border-gray-500 px-2 py-1 font-semibold whitespace-nowrap dark:text-gray-200">
                                 {{ $employee->name }}
                             </td>
                             @foreach ($dates as $date)
@@ -75,7 +75,7 @@
                                         )
                                         : '';
                                 @endphp
-                                <td class="border border-gray-300 text-center p-0">
+                                <td class="border border-gray-300 dark:border-gray-500 text-center p-0 dark:text-gray-200">
                                     <div class="relative">
                                         <span class="display-span">{{ $value }}</span>
                                         <input type="text"
