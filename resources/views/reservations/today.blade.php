@@ -2,11 +2,11 @@
 
 @section('content')
 <div x-data="{ showModal: false, modalData: {} }" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-    <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-6">本日の予約スケジュール</h2>
+    <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-2">本日の予約スケジュール</h2>
 
     <div class="overflow-auto border rounded-lg shadow bg-white dark:bg-gray-800">
         <table class="min-w-full text-sm text-center text-gray-700 dark:text-gray-200 border-collapse">
-            <thead class="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-200 uppercase text-xs">
+            <thead class="bg-gray-700 text-gray-200 uppercase text-xs">
                 <tr>
                     <th class="px-3 py-2 border border-gray-300 dark:border-gray-500">従業員</th>
                     @foreach ($timeSlots as $time)

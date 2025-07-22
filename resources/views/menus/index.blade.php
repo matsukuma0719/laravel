@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="max-w-6xl mx-auto p-6">
-    <h2 class="text-xl font-bold mb-6 dark:text-gray-100">メニュー一覧</h2>
+    <h2 class="text-xl font-bold mb-2 dark:text-gray-100">メニュー一覧</h2>
 
     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
         @foreach ($menus as $menu)

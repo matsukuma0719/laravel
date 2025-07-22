@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="overflow-auto">
-    <h2 class="text-xl font-bold mb-4 dark:text-gray-100">勤務シフト一覧</h2>
+    <h2 class="text-xl font-bold mb-2 dark:text-gray-100">勤務シフト一覧</h2>
 
     <form action="{{ route('work_shifts.bulkUpdate') }}" method="POST">
         @csrf
@@ -46,7 +46,7 @@
 
         <div class="overflow-auto border rounded-lg shadow bg-white dark:bg-gray-800">
             <table class="min-w-full text-sm text-center text-gray-700 dark:text-gray-200 border-collapse">
-                <thead class="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-200 uppercase text-xs">
+                <thead class="bg-gray-700 text-gray-200 uppercase text-xs">
                     <tr class="bg-gray-100">
                         <th class="border border-gray-300 dark:border-gray-500 px-2 py-1 text-left">従業員名</th>
                         @foreach ($dates as $date)

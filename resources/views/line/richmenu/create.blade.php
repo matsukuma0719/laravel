@@ -42,7 +42,7 @@
 </style>
 
 <div class="max-w-5xl mx-auto mt-10 bg-white dark:bg-gray-900 p-6 rounded-xl shadow">
-    <h2 class="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-100">リッチメニュー新規作成</h2>
+    <h2 class="text-2xl font-bold mb-2 text-gray-800 dark:text-gray-100">リッチメニュー新規作成</h2>
     <form id="area-form" method="POST" action="{{ route('richmenu.store') }}" enctype="multipart/form-data">
         @csrf
 
@@ -57,7 +57,7 @@
         <!-- 適用属性 -->
         <div class="mb-4">
             <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">適用属性</label>
-            <div class="flex flex-wrap gap-4">
+            <div class="flex flex-wrap gap-2.5">
                 <div>
                     <div class="mb-1 text-xs text-gray-600 dark:text-gray-400">性別</div>
                     <label class="inline-flex items-center">
@@ -70,7 +70,7 @@
                     </label>
                 </div>
             </div>
-            <div class="flex flex-wrap gap-4">    
+            <div class="flex flex-wrap gap-2.5">
                 <div>
                     <div class="mb-1 text-xs text-gray-600 dark:text-gray-400">年齢</div>
                     <label class="inline-flex items-center mr-3">

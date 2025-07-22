@@ -2,11 +2,11 @@
 
 @section('content')
     <div class="max-w-7xl mx-auto px-4 py-6">
-        <h1 class="text-2xl font-bold mb-6 dark:text-gray-100">予約一覧</h1>
+        <h1 class="text-2xl font-bold mb-2 dark:text-gray-100">予約一覧</h1>
 
-        <div class="overflow-x-auto bg-white dark:bg-gray-800 shadow rounded-lg">
+        <div class="overflow-auto bg-white dark:bg-gray-800 shadow rounded-lg">
             <table class="min-w-full divide-y divide-gray-200 text-gray-700 dark:text-gray-200">
-                <thead class="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-200">
+                <thead class="bg-gray-700 text-gray-200">
                     <tr>
                         <th class="px-4 py-2 border border-gray-300 dark:border-gray-500">日付</th>
                         <th class="px-4 py-2 border border-gray-300 dark:border-gray-500">メニュー</th>

@@ -7,7 +7,7 @@
         <h3 class="text-lg font-bold mb-2 dark:text-gray-100">本日の予約スケジュール</h3>
         <div class="overflow-auto border rounded-lg shadow bg-white dark:bg-gray-800">
             <table class="min-w-full text-xs text-center text-gray-700 dark:text-gray-200 border-collapse">
-                <thead class="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-200 uppercase text-[13px]">
+                <thead class="bg-gray-700 text-gray-200 uppercase text-[13px]">
                     <tr>
                         <th class="px-1 py-1 border border-gray-300 dark:border-gray-500">従業員</th>
                         @foreach ($timeSlots as $time)
@@ -40,9 +40,9 @@
         </div>
          <div class="mb-8">
         <h3 class="text-lg font-bold mb-2 dark:text-gray-100">本日の直近予約5件</h3>
-        <div class="overflow-x-auto">
+        <div class="overflow-auto">
             <table class="min-w-full text-xs text-gray-700 dark:text-gray-200 border-collapse">
-                <thead class="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-200 uppercase">
+                <thead class="bg-gray-700 text-gray-200 uppercase">
                     <tr>
                         <th class="px-2 py-2 border border-gray-300 dark:border-gray-500">時間</th>
                         <th class="px-2 py-2 border border-gray-300 dark:border-gray-500">顧客名</th>

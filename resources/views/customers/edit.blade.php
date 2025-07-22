@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="max-w-7xl mx-auto px-4 py-8">
-    <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-6">顧客情報の編集</h2>
+    <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-2">顧客情報の編集</h2>
 
     <div class="grid grid-cols-2 gap-8">
 
@@ -15,7 +15,7 @@
 
     <div class="flex gap-6 items-start">
         {{-- 左側：名前とフリガナ（縦並び） --}}
-        <div class="flex flex-col gap-3 w-full max-w-md">
+        <div class="flex flex-col gap-2.5 w-full max-w-md">
             <div>
                 <label class="block font-medium text-sm mb-1">氏名（漢字）</label>
                 <input type="text" name="name" value="{{ old('name', $customer->name) }}"
@@ -36,7 +36,7 @@
                 class="w-24 h-24 rounded-full object-cover border shadow">
         </div>
     </div>
-        <div class="grid grid-cols-2 gap-4 mt-3 mb-3">
+        <div class="grid grid-cols-2 gap-2.5 mt-[10px] mb-[10px]">
             <div class="flex flex-col">
                 <label class="block font-medium text-sm mb-2">性別</label>
                 <select name="gender"
@@ -74,7 +74,7 @@
                     class="w-full px-4 py-2 rounded-xl bg-blue-100 dark:bg-gray-700 border-none focus:outline-none focus:ring-2 focus:ring-blue-300">
         </div>
 
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-2 gap-2.5">
             <div class="mb-5">
                 <label class="block font-medium text-sm mb-2">初回来店日</label>
                 <input type="date" name="first_visit" value="{{ old('first_visit', $customer->first_visit) }}"
@@ -87,7 +87,7 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-2 gap-2.5">
             <div class="mb-5">
                 <label class="block font-medium text-sm mb-2">来店回数</label>
                 <input type="number" name="visit_count" value="{{ old('visit_count', $customer->visit_count) }}"
