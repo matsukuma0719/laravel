@@ -3,60 +3,67 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
-use App\Services\LineMessageService;
 use App\Models\Customer;
-use App\Models\Menu;
-use Illuminate\Support\Str;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Str; // ←必須
 
 class LineWebhookController extends Controller
 {
-    protected $line;
-
-    public function __construct(LineMessageService $lineMessageService)
+    public function webhook(Request $request)
     {
-        $this->line = $lineMessageService;
+        $events = $request->input('events', []);
+        foreach ($events as $event) {
+            switch ($event['type']) {
+                case 'follow':
+                    $this->handleFollow($event);
+                    break;
+                // 今後追加する場合
+                // case 'message':
+                //     $this->handleMessage($event);
+                //     break;
+                // case 'unfollow':
+                //     $this->handleUnfollow($event);
+                //     break;
+            }
+        }
+        return response()->json(['status' => 'ok']);
     }
 
-    public function handle(Request $request)
+    // followイベントの個別処理
+   private function handleFollow($event)
     {
-        Log::debug('LINE Webhook受信：', $request->all());
-
-        $event = $request->input('events')[0] ?? null;
-        if (!$event) {
-            return response()->json(['message' => 'No event data'], 400);
-        }
-
-        $type = $event['type'] ?? null;
         $userId = $event['source']['userId'] ?? null;
-        $replyToken = $event['replyToken'] ?? null;
-        $text = $event['message']['text'] ?? null;
+        $timestamp = $event['timestamp'] ?? now()->timestamp * 1000;
+        $profile = $event['profile'] ?? [];
 
-        if ($type === 'follow') {
-            if (!$replyToken) return response()->json(['message' => 'Missing replyToken'], 400);
-            $profile = $this->line->getProfile($userId);
-            $name = $profile['displayName'] ?? '未取得';
+        if ($userId) {
+            $exists = Customer::where('user_id', $userId)->exists();
+            if (!$exists) {
+                $customerId = (string) Str::uuid(); // ←ここでUUID生成
 
-            Customer::firstOrCreate(
-                ['user_id' => $userId],
-                ['customer_id' => Str::uuid(), 'name' => $name]
-            );
+                // Customer作成
+                $customer = Customer::create([
+                    'customer_id' => $customerId,
+                    'user_id'     => $userId,
+                    'name'        => $profile['displayName'] ?? null,
+                    'created_at'  => \Carbon\Carbon::createFromTimestampMs($timestamp),
+                ]);
 
-            $this->line->sendQuickReply($replyToken, ['📖メニューから選ぶ', '📅日付から選ぶ']);
-            return response()->json(['message' => 'Follow handled']);
+                // CustomerProfileも同時に作成（必要なら）
+                \App\Models\CustomerProfile::create([
+                    'customer_id'        => $customerId,
+                    'gender'             => $profile['gender'] ?? null,
+                    'birthday'           => $profile['birthday'] ?? null,
+                    'phone_number'       => $profile['phone_number'] ?? null,
+                    'address'            => $profile['address'] ?? null,
+                    'mail_address'       => $profile['mail_address'] ?? null,
+                    'first_visit_date'   => $profile['first_visit_date'] ?? null,
+                    'last_visit_date'    => $profile['last_visit_date'] ?? null,
+                    'numeber_visit_store'=> $profile['numeber_visit_store'] ?? null,
+                    'memo'               => $profile['memo'] ?? null,
+                ]);
+            }
         }
-
-        if ($text === '予約') {
-            $this->line->sendQuickReply($replyToken, ['📖メニューから選ぶ', '📅日付から選ぶ']);
-            return response()->json(['message' => 'Quick reply for reservation sent']);
-        }
-
-        if ($text === '📖メニューから選ぶ') {
-            $menus = Menu::all();
-            $this->line->sendMenuFlex($replyToken, $menus);
-            return response()->json(['message' => 'Menu list sent']);
-        }
-
-        return response()->json(['message' => 'Unhandled message'], 200);
     }
+
 }

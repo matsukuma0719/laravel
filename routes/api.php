@@ -9,7 +9,7 @@ use App\Http\Controllers\Api\ReservationController;
 use App\Http\Controllers\LineWebhookController;
 use App\Http\Middleware\AllowOnlySpecificIp;
 
-Route::post('/line/webhook', [App\Http\Controllers\LineWebhookController::class, 'handle']);
+Route::post('/line/webhook', [LineWebhookController::class, 'webhook']);
 
 Route::middleware(['check.api.key', 'allow.only.specific.ip'])->group(function () {
    
