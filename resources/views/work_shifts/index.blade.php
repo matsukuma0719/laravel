@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="overflow-auto">
-    <h2 class="text-xl font-bold mb-4">勤務シフト一覧</h2>
+    <h2 class="text-xl font-bold mb-2 dark:text-gray-100">勤務シフト一覧</h2>
 
     <form action="{{ route('work_shifts.bulkUpdate') }}" method="POST">
         @csrf
@@ -30,7 +30,7 @@
             @endphp
 
             <div class="flex items-center justify-between mb-4">
-                <a href="{{ route('work_shifts.index', ['year' => $prevYear, 'month' => $prevMonth]) }}" class="text-blue-600 hover:underline">
+                <a href="{{ route('work_shifts.index', ['year' => $prevYear, 'month' => $prevMonth]) }}" class="text-blue-600 dark:text-blue-400 hover:underline">
                     {{ $prevMonth }}月
                 </a>
 
@@ -38,20 +38,20 @@
                     {{ $year }}年{{ $month }}月
                 </span>
 
-                <a href="{{ route('work_shifts.index', ['year' => $nextYear, 'month' => $nextMonth]) }}" class="text-blue-600 hover:underline">
+                <a href="{{ route('work_shifts.index', ['year' => $nextYear, 'month' => $nextMonth]) }}" class="text-blue-600 dark:text-blue-400 hover:underline">
                     {{ $nextMonth }}月
                 </a>
             </div>
         </div>
 
-        <div class="overflow-auto border rounded-lg shadow bg-white">
-            <table class="min-w-full text-sm text-center text-gray-700 border-collapse">
-                <thead class="bg-gray-100 text-gray-600 uppercase text-xs">
+        <div class="overflow-auto border rounded-lg shadow bg-white dark:bg-gray-800 mb-10">
+            <table class="min-w-full text-sm text-center text-gray-700 dark:text-gray-200 border-collapse">
+                <thead class="bg-gray-700 text-gray-200 uppercase text-xs">
                     <tr class="bg-gray-100">
-                        <th class="border border-gray-300 px-2 py-1 text-left">従業員名</th>
+                        <th class="border border-gray-300 dark:border-gray-500 px-2 py-1 text-left">従業員名</th>
                         @foreach ($dates as $date)
                             @php $carbonDate = \Carbon\Carbon::parse($date); @endphp
-                            <th class="border border-gray-300 px-2 py-1 whitespace-nowrap text-center">
+                            <th class="border border-gray-300 dark:border-gray-500 px-2 py-1 whitespace-nowrap text-center">
                                 {{ $carbonDate->format('n/j') }}<br>
                                 {{ ['日','月','火','水','木','金','土'][$carbonDate->dayOfWeek] }}
                             </th>
@@ -60,8 +60,8 @@
                 </thead>
                 <tbody>
                     @foreach ($employees as $employee)
-                        <tr class="hover:bg-gray-50">
-                            <td class="border border-gray-300 px-2 py-1 font-semibold whitespace-nowrap">
+                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
+                            <td class="border border-gray-300 dark:border-gray-500 px-2 py-1 font-semibold whitespace-nowrap dark:text-gray-200">
                                 {{ $employee->name }}
                             </td>
                             @foreach ($dates as $date)
@@ -75,7 +75,7 @@
                                         )
                                         : '';
                                 @endphp
-                                <td class="border border-gray-300 text-center p-0">
+                                <td class="border border-gray-300 dark:border-gray-500 text-center p-0 dark:text-gray-200">
                                     <div class="relative">
                                         <span class="display-span">{{ $value }}</span>
                                         <input type="text"

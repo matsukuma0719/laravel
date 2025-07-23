@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="max-w-lg mx-auto bg-white dark:bg-gray-900 p-8 rounded-xl shadow mt-10">
-    <h2 class="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-100">LINEチャネル設定</h2>
+    <h2 class="text-2xl font-bold mb-2 text-gray-800 dark:text-gray-100">LINEチャネル設定</h2>
 
     @if(session('success'))
       <div class="bg-green-100 text-green-700 px-4 py-2 rounded mb-4">

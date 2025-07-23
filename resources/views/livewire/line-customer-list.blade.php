@@ -1,5 +1,5 @@
 <!--<div wire:poll.10s>
-    <h2 class="text-xl font-bold mb-4">やり取りのあるお客様一覧</h2>
+    <h2 class="text-xl font-bold mb-2">やり取りのあるお客様一覧</h2>
 
     <ul class="space-y-2">
     @foreach ($customers as $customer)
